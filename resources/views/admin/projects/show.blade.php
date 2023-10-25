@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('import-cdn')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -21,24 +20,21 @@
                 </tr>
             </thead>
 
-            @foreach ($projects as $project)
-                <tbody>
-                    <tr>
-                        <th scope="row">{{ $project->id }}</th>
-                        <td>{{ $project->name }}</td>
-                        <td>{{ $project->slug }}</td>
-                        <td>{{ $project->git_url }}</td>
-                        <td>{{ $project->description }}</td>
-                        <td>
-                            <a href="{{ route('admin.projects.show', $project) }}">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
-                        </td>
-                        <td><i class="fa-solid fa-file-pen"></i></td>
-                        <td><i class="fa-solid fa-trash"></i></td>
-                    </tr>
-                </tbody>
-            @endforeach
+            <tbody>
+                <tr>
+                    <th scope="row">{{ $project->id }}</th>
+                    <td>{{ $project->name }}</td>
+                    <td>{{ $project->slug }}</td>
+                    <td>{{ $project->git_url }}</td>
+                    <td>{{ $project->description }}</td>
+
+
+                    <td><i class="fa-solid fa-file-pen"></i></td>
+                    <td><i class="fa-solid fa-trash"></i></td>
+
+                </tr>
+            </tbody>
+
         </table>
     </div>
 @endsection

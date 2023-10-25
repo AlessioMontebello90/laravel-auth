@@ -1,23 +1,22 @@
 <?php
+// bisogna aggiornare la netspace con admin alla fine
 namespace App\Http\Controllers\Admin;
-
 use App\Models\Project;
 use Illuminate\Http\Request;
+// deve andare a perscare il controller dalla cartella controllers
 use App\Http\Controllers\Controller;
-
 class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * * *@return \Illuminate\Http\Response
      */
     public function index()
     {
         $projects = Project::all();
         return view("admin.projects.index", compact("projects"));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -41,12 +40,17 @@ class ProjectController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+     *  * *@return \Illuminate\Http\Response
      */
     public function show(Project $project)
     {
+        // dd($projects);
+        // $projects = Project::where('id', '==', $project[id])->get();
+        return view("admin.projects.show", compact("project"));
+
         //
     }
+
     /**
      * Show the form for editing the specified resource.
      *
