@@ -1,1 +1,17 @@
-@import '~bootstrap/scss/bootstrap'
+@use "./partials/variables" as *;
+@use "./partials/mixins" as *;
+@import "~bootstrap/scss/bootstrap";
+// debug
+.debug {
+    background-color: rgba(22, 109, 223, 0.534);
+    border: 1px dashed white;
+    color: white;
+}
+
+a {
+    color: currentColor;
+    text-decoration: none;
+    &:hover {
+        color: lightcoral;
+    }
+}

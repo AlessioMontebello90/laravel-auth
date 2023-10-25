@@ -9,6 +9,11 @@
 
 @section('content')
     <div class="container mt-5">
+        <a class="my-3" href="{{ route('admin.projects.create') }}">
+            <div class="btn btn-success">
+                new project
+            </div>
+        </a>
         <table class="table">
             <thead>
                 <tr>
@@ -34,7 +39,10 @@
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                         </td>
-                        <td><i class="fa-solid fa-file-pen"></i></td>
+                        <td>
+                            <i class="fa-solid fa-file-pen"></i>
+                        </td>
+
                         <td><i class="fa-solid fa-trash"></i></td>
                     </tr>
                 </tbody>
