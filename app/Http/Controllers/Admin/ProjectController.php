@@ -1,10 +1,11 @@
 <?php
-// bisogna aggiornare la netspace con admin alla fine
+
 namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
-// deve andare a perscare il controller dalla cartella controllers
+
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 class ProjectController extends Controller
 {
     /**
@@ -30,11 +31,17 @@ class ProjectController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * *@return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $project = new Project();
+        $project->fill($data);
+        $project->slug = Str::slug($project->name);
+        $project->save();
+
+        return redirect()->route('admin.projects.show', $project);
     }
     /**
      * Display the specified resource.

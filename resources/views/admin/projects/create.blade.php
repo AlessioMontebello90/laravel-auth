@@ -21,10 +21,10 @@
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" />
 
-                <label for="Url" class="form-label">Url</label>
+                <label for="git_url" class="form-label">Url</label>
                 <textarea class="form-control" id="Url" name="Url" rows="1"></textarea>
 
-                <label for="Description" class="form-label">Description</label>
+                <label for="description" class="form-label">Content</label>
                 <textarea class="form-control" id="description" name="description" rows="5"></textarea>
 
                 <button type="submit" class="btn btn-warning mt-5">Save</button>
