@@ -65,7 +65,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view("admin.projects.edit", compact("project"));
     }
     /**
      * Update the specified resource in storage.
@@ -76,7 +76,14 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $data = $request->all();
+        
+        $project->slug = Str::slug($project->name);
+
+        $project->update($data);
+
+
+        return redirect()->route("admin.projects.show", $project);
     }
     /**
      * Remove the specified resource from storage.

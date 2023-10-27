@@ -35,15 +35,18 @@
                         <td>{{ $project->git_url }}</td>
                         <td>{{ $project->description }}</td>
                         <td>
-                            <a href="{{ route('admin.projects.show', $project) }}">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <i class="fa-solid fa-file-pen"></i>
+                            <div class="d-flex gap-2 my-1  justify-content-center align-items-center">
+                                <a href="{{ route('admin.projects.show', $project) }}">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a href="{{ route('admin.projects.edit', $project) }}">
+                                    <i class="fa-solid fa-file-pen"></i>
+                                </a>
+                                <i class="fa-solid fa-trash"></i>
+
+                            </div>
                         </td>
 
-                        <td><i class="fa-solid fa-trash"></i></td>
                     </tr>
                 </tbody>
             @endforeach

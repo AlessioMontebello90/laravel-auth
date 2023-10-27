@@ -16,7 +16,7 @@
                     <th scope="col">Slug</th>
                     <th scope="col">Url</th>
                     <th scope="col">Description</th>
-                    <th scope="col" colspan="3">Action</th>
+                    <th scope="col" class="text-center">Action</th>
                 </tr>
             </thead>
 
@@ -29,8 +29,14 @@
                     <td>{{ $project->description }}</td>
 
 
-                    <td><i class="fa-solid fa-file-pen"></i></td>
-                    <td><i class="fa-solid fa-trash"></i></td>
+                    <td>
+                        <div class="d-flex gap-2 my-1  justify-content-center align-items-center">
+                            <a href="{{ route('admin.projects.edit', $project) }}">
+                                <i class="fa-solid fa-file-pen"></i>
+                            </a>
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
+                    </td>
 
                 </tr>
             </tbody>
