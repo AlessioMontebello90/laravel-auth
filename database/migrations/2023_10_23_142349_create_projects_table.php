@@ -17,7 +17,7 @@ return new class extends Migration {
             // comincio la trascrizione dei dati della tabella
             $table->string('name', 50);
             $table->string('slug');
-            $table->text('git_url');
+            $table->text('git_url')->nullable();
             $table->text('description');
 
             $table->timestamps();

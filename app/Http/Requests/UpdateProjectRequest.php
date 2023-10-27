@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProjectRequest extends FormRequest
+class UpdateProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,11 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50'],
-            'git_url' => [''],
+            // 'git_url' => [],
             'description' => ['string']
         ];
     }
+
     public function messages()
     {
         return [
@@ -36,7 +37,8 @@ class StoreProjectRequest extends FormRequest
             'name.string' => 'the name must be text',
             'name.max' => 'the name must be a maximum of 50 characters',
 
-            'git_url.url' => 'enter a URL',
+            
+
 
             'description.string' => 'the description must be of text type',
         ];

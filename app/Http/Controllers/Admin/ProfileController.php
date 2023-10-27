@@ -2,61 +2,102 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Project;
+use Illuminate\Http\Request;
+
+
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Illuminate\Support\Str;
 
-class ProfileController extends Controller
+use Illuminate\Support\Facades\Validator;
+class ProjectController extends Controller
 {
-  /**
-   * Display the user's profile form.
-   */
-  public function edit(Request $request): View
-  {
-    return view('profile.edit', [
-      'user' => $request->user(),
-    ]);
-  }
-
-  /**
-   * Update the user's profile information.
-   */
-  public function update(ProfileUpdateRequest $request): RedirectResponse
-  {
-    $request->user()->fill($request->validated());
-
-    if ($request->user()->isDirty('email')) {
-      $request->user()->email_verified_at = null;
+    /**
+     * Display a listing of the resource.
+     *
+     * *@return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $projects = Project::all();
+        return view("admin.projects.index", compact("projects"));
     }
-
-    $request->user()->save();
-
-    return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    /**
+     * Show the form for creating a new resource.
+     *
+     * *@return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.projects.create');
+        
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * *@return \Illuminate\Http\Response
+     */
+    public function store(StoreProjectRequest $request)
+    {
+        
+        $data = $request->validated();
+        $project = new Project();
+        $project->fill($data);
+        $project->slug = Str::slug($project->name);
+        $project->save();
+        return redirect()->route('admin.projects.show', $project);
+        
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Project  $project
+     * *@return \Illuminate\Http\Response
+     */
+    public function show(Project $project)
+    {
+        return view("admin.projects.show", compact("project"));
+        
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Project  $project
+     * *@return \Illuminate\Http\Response
+     */
+    public function edit(Project $project)
+    {
+        return view("admin.projects.edit", compact("project"));
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Project  $project
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateProjectRequest $request, Project $project)
+    {$data = $request->validated();
+      
+      $project->slug = Str::slug($project->name);
+      $project->update($data);
+      return redirect()->route("admin.projects.show", $project);
+      
   }
-
   /**
-   * Delete the user's account.
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\Models\Project  $project
+   * @return \Illuminate\Http\Response
    */
-  public function destroy(Request $request): RedirectResponse
+  public function destroy(Project $project)
   {
-    $request->validateWithBag('userDeletion', [
-      'password' => ['required', 'current-password'],
-    ]);
-
-    $user = $request->user();
-
-    Auth::logout();
-
-    $user->delete();
-
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-
-    return Redirect::to('/');
+      $project->delete();
+      return redirect()->route('admin.projects.index');
+      
   }
 }

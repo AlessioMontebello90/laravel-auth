@@ -6,12 +6,31 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 
+
+
+
+
+
+
+
+
+
 @section('content')
-    <h1 class="container my-1">edit</h1>
+
     <div class="container mt-5">
+        @if ($errors->any())
+            <div class="alert alert-warning">
+                <h5>correct the following errors</h5>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <a class="" href="{{ route('admin.projects.index') }}">
             <div class="my-3 btn btn-success">
-                Back to list
+                Back to Portfolio list
             </div>
         </a>
 
@@ -24,22 +43,47 @@
                 @csrf
                 @method('PUT')
 
+
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $project->name }}" />
+                <input type="text"
+                    class="form-control
+                @error('name')
+                 is-invalid
+                @enderror"
+                    id="name" name="name" value="{{ old('name') ?? $project->name }}" />
+                @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
                 <label for="git_url" class="form-label">Url</label>
-                <textarea class="form-control" id="git_url" name="git_url" rows="1">{{ $project->git_url }}</textarea>
+                <textarea class="form-control
+                @error('git_url')
+                  is-invalid
+                @enderror"
+                    id="git_url" name="git_url" rows="1">{{ old('git_url') ?? $project->git_url }}</textarea>
+                @error('git_url')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
 
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="5">{{ $project->description }}</textarea>
-
+                <textarea class="form-control" id="description" name="description" rows="5">{{ old('description') ?? $project->description }}</textarea>
+                @error('description')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
                 <button type="submit" class="btn btn-primary my-3">Edit</button>
             </form>
+        </section>
     </div>
-    </section>
 @endsection
 
+
+
+
+
+
+
+
 @section('modals')
-    <div class="modal fade" id="ciccio{{ $project->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="Paperino{{ $project->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
