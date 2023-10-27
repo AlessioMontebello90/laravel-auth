@@ -8,6 +8,11 @@
 
 @section('content')
     <div class="container mt-5">
+        <a class="" href="{{ route('admin.projects.index') }}">
+            <div class="my-3 btn btn-success">
+                back to Portfolio list
+            </div>
+        </a>
         <table class="table">
             <thead>
                 <tr>

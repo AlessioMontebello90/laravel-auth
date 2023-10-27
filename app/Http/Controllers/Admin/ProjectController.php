@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,7 +27,7 @@ class ProjectController extends Controller
     public function create()
     {
         return view('admin.projects.create');
-        //
+        
     }
     /**
      * Store a newly created resource in storage.
@@ -34,9 +35,11 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * *@return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
+
+
         $project = new Project();
         $project->fill($data);
         $project->slug = Str::slug($project->name);
@@ -95,27 +98,4 @@ class ProjectController extends Controller
         
     }
 
-    private function validator($data)
-    {
-
-        $validator = Validator::make(
-            $data,
-            [
-                'name' => 'required|string|max:50',
-                'git_url' => 'url',
-                'description' => 'string'
-            ],
-            [
-                'name.required' => 'the name is mandatory',
-                'name.string' => 'the name must be text',
-                'name.max' => 'the name must be max 50 characters long',
-
-                'git_url.url' => 'enter a URL',
-
-                'description.string' => 'the description must be of text type',
-            ]
-        )->validate();
-
-        return $validator;
-    }
 }

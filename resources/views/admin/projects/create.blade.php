@@ -7,28 +7,68 @@
 @endsection
 
 @section('content')
-    <h1 class="container my-1">Add new project</h1>
     <div class="container mt-5">
+
+        @if ($errors->any())
+            <div class="alert alert-warning">
+                <h5>correct the following errors</h5>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <a class="" href="{{ route('admin.projects.index') }}">
             <div class="my-3 btn btn-success">
-                back to portfolio list
+                back to Portfolio list
             </div>
         </a>
-        <section class="class">
+        <section class="">
             <form action="{{ route('admin.projects.store') }}" method="POST">
                 @csrf
 
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" />
+                <input type="text" class="form-control 
+      @error('name')
+          is-invalid
+      @enderror"
+                    id="name" name="name" value="{{ old('name') }}" />
+                @error('name')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
 
-                <label for="git_url" class="form-label">Url</label>
-                <textarea class="form-control" id="Url" name="Url" rows="1"></textarea>
+                <label for="git_url" class="form-label">Url </label>
+                <textarea class="form-control
+                @error('git_url')
+                 is-invalid
+                @enderror "
+                    id="git_url" name="git_url" rows="1">{{ old('git_url') }}</textarea>
+                @error('git_url')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
 
-                <label for="description" class="form-label">Content</label>
-                <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                    class="form-control 
+                @error('description')
+                  is-invalid
+                @enderror"
+                    id="description" name="description" rows="5">{{ old('description') }}</textarea>
+                @error('git_url')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
 
-                <button type="submit" class="btn btn-warning mt-5">Save</button>
+                <button type="submit" class="btn btn-primary my-3">Save</button>
             </form>
     </div>
     </section>
+
 @endsection
