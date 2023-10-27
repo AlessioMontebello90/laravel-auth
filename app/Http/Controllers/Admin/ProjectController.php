@@ -5,6 +5,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 class ProjectController extends Controller
 {
     /**
@@ -92,5 +93,29 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('admin.projects.index');
         
+    }
+
+    private function validator($data)
+    {
+
+        $validator = Validator::make(
+            $data,
+            [
+                'name' => 'required|string|max:50',
+                'git_url' => 'url',
+                'description' => 'string'
+            ],
+            [
+                'name.required' => 'the name is mandatory',
+                'name.string' => 'the name must be text',
+                'name.max' => 'the name must be max 50 characters long',
+
+                'git_url.url' => 'enter a URL',
+
+                'description.string' => 'the description must be of text type',
+            ]
+        )->validate();
+
+        return $validator;
     }
 }
