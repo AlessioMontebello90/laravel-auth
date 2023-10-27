@@ -42,7 +42,9 @@
                                 <a href="{{ route('admin.projects.edit', $project) }}">
                                     <i class="fa-solid fa-file-pen"></i>
                                 </a>
-                                <i class="fa-solid fa-trash"></i>
+                                <span class="delete-btn" data-bs-toggle="modal" data-bs-target="#ciccio{{ $project->id }}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </span>
 
                             </div>
                         </td>
@@ -52,4 +54,37 @@
             @endforeach
         </table>
     </div>
+@endsection
+
+@section('modals')
+    <section class="container my-5">
+
+
+
+        <!-- MODAL SECTION -->
+        @foreach ($projects as $project)
+            <div class="modal fade" id="ciccio{{ $project->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel"> Delete {{ $project->name }}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Delete the <span class="text-danger fw-bolder">{{ $project->name }}</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Decline</button>
+                            <form action="{{ route('admin.projects.destroy', $project) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger">Confirm</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </section>
 @endsection

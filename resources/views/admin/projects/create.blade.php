@@ -14,7 +14,7 @@
                 back to portfolio list
             </div>
         </a>
-        <section class="debug">
+        <section class="class">
             <form action="{{ route('admin.projects.store') }}" method="POST">
                 @csrf
 
